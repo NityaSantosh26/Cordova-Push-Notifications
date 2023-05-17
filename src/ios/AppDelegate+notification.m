@@ -257,8 +257,9 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
                 NSLog(@"Push Plugin notId handler");
                 [pushHandler.handlerObj setObject:safeHandler forKey:@"handler"];
             }
-
-            pushHandler.notificationMessage = userInfo;
+            
+            // Handle banner tap when app is in background(closed)
+            pushHandler.notificationMessage = response.notification.request.content.userInfo;
             pushHandler.isInline = NO;
 
             [pushHandler performSelectorOnMainThread:@selector(notificationReceived) withObject:pushHandler waitUntilDone:NO];
